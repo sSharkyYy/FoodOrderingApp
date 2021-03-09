@@ -4,10 +4,23 @@
 
     <div class="container">
         <div class="d-flex flex-column">
-            <h4>Registered users: </h4>
-            {% for account in accounts %}
-                <p>{{ account }} | {{ account.date_joined }}</p>
-            {% endfor %}
+
+            <div class="card mt-3">
+                <h5 class="card-header">Étterem 1</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Cím</h5>
+                    <p class="card-text">bla bla bla.</p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <h5 class="card-header">Étterem 2</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Cím</h5>
+                    <p class="card-text">bla bla bla.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
