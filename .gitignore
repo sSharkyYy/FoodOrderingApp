@@ -1,0 +1,4 @@
+/.idea/
+/venv/
+FoodOrderingApp.iml
+db.sqlite3
