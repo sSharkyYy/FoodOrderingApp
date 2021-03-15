@@ -3,5 +3,4 @@
 /venv/
 FoodOrderingApp.iml
 db.sqlite3
-/.idea/
 /res/
