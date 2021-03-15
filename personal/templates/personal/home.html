@@ -3,23 +3,9 @@
 {% block content %}
 
     <div class="container">
-        <div class="d-flex flex-column">
-            <div class="card mt-3">
-                <h5 class="card-header">Étterem 1</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Cím</h5>
-                    <p class="card-text">bla bla bla.</p>
-                </div>
-            </div>
-
-            <div class="card mt-3">
-                <h5 class="card-header">Étterem 2</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Cím</h5>
-                    <p class="card-text">bla bla bla.</p>
-                </div>
-            </div>
-        </div>
+        {% for item in list_of_values %}
+            {% include  'personal/snippets/body_snippets.html' with value=item %}
+        {% endfor %}
     </div>
 
 {% endblock content %}
