@@ -1,4 +1,5 @@
 /.idea/
+/.idea/misc.xml
 /venv/
 FoodOrderingApp.iml
 db.sqlite3
