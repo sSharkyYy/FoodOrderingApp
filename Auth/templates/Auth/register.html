@@ -43,12 +43,11 @@
       text-align: center;
     }
   </style>
-
-  <form method="post" action="{% url 'Auth:login' %}" class="form-signin">
+  <form method="post" action="{% url 'Auth:registration'  request.resolver_match.kwargs.user_type %}" class="form-signin">
     {% csrf_token %}
-    <h1 class="h3 mb-3 font-weight-normal">Bejelentkezés</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Regisztráció</h1>
     {{ form|crispy }}
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Regisztráció</button>
   </form>
 
 {% endblock %}

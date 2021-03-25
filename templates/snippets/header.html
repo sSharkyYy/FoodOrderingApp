@@ -36,7 +36,7 @@
       <a class="p-2 text-dark" href="{% url 'home' %}">Kezdőlap</a>
       <a class="p-2 text-dark" href="{% url 'Auth:login' %}">Login</a>
       </nav>
-      <a class="btn btn-outline-primary" href="">Regisztráció</a>
+      <a class="btn btn-outline-primary" href="{% url 'Auth:registration_chooser' %}">Regisztráció</a>
     {% endif %}
   </nav>
 </div>

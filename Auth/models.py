@@ -52,11 +52,19 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    class UserTypes(models.Choices):
+        RESTAURANT = 1
+        CUSTOMER = 2
+        COURIER = 3
+
     username = None
+    nickname = models.CharField(max_length=254)
     USERNAME_FIELD = 'email'
     email = models.EmailField(_('email address'), unique=True)  # changes email to unique and blank to false
-    REQUIRED_FIELDS = []  # removes email from REQUIRED_FIELDS
     objects = UserManager()
+    tenant_type = models.IntegerField(choices=UserTypes.choices, default=UserTypes.CUSTOMER)
+
+    REQUIRED_FIELDS = []  # removes email from REQUIRED_FIELDS
 
     is_active = models.BooleanField(
         _('active'),
@@ -88,7 +96,7 @@ class Token(models.Model):
         now = timezone.now()
         # 2018-01-25 10:25 - 2018-01-25 10:10
         return self.active and (
-                now - self.create_date).seconds < 60 * 60 * self.expiration_time_in_hours  # 24 óráig érvényes a token
+            now - self.create_date).seconds < 60 * 60 * self.expiration_time_in_hours  # 24 óráig érvényes a token
 
 
 class PasswordResetToken(Token):

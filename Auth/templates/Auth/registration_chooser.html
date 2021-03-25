@@ -43,12 +43,10 @@
       text-align: center;
     }
   </style>
-
-  <form method="post" action="{% url 'Auth:login' %}" class="form-signin">
-    {% csrf_token %}
-    <h1 class="h3 mb-3 font-weight-normal">Bejelentkezés</h1>
-    {{ form|crispy }}
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
-  </form>
+<div class="row">
+  <div class="col-4"><a href="{% url 'Auth:registration' 1 %}">Restaurant</a></div>
+  <div class="col-4"><a href="{% url 'Auth:registration' 2 %}">Customer</a></div>
+  <div class="col-4"><a href="{% url 'Auth:registration' 3 %}">Courier</a></div>
+</div>
 
 {% endblock %}

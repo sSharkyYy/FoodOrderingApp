@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 
+from Auth.Views.Registration import Registration
+from Auth.Views.RegistrationChooser import RegistrationChooser
 from Auth.Views.Login import Login
 from Auth.Views.Logout import Logout
 
@@ -22,4 +24,6 @@ app_name = 'Auth'
 urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
+    path('registration-chooser/', RegistrationChooser.as_view(), name='registration_chooser'),
+    path('registration/<int:user_type>/', Registration.as_view(), name='registration'),
 ]
