@@ -3,15 +3,42 @@ from Auth.models import User
 
 class UserService:
 
-    def create_user(self, user_type: int, **kwargs):
-        user_type = User.UserTypes(user_type).name.lower()
-        self.__class__.__dict__.get(f'_UserService__create_{user_type}')(self,**kwargs)
+    @staticmethod
+    def create_user(user_type: str, **kwargs):
+        user_type = User.UserTypes[user_type.upper()]
+        kwargs['tenant_type'] = user_type.value
+        method = UserService.__dict__.get(f'_UserService__create_{user_type.name.lower()}')
+        method.__get__(UserService)(**kwargs)
 
-    def __create_restaurant(self, *args, **kwargs):
-        pass
+    @staticmethod
+    def __create_restaurant(email, password, **kwargs):
+        User.objects.create_user(
+            email,
+            password,
+            tenant_type=kwargs['tenant_type']
+        )
 
-    def __create_customer(self, *args, **kwargs):
-        pass
+    @staticmethod
+    def __create_customer(email, password, nick_name, **kwargs):
+        User.objects.create_user(
+            email=email,
+            password=password,
+            nick_name=nick_name,
+            tenant_type=kwargs['tenant_type']
+        )
 
-    def __create_courier(self, *args, **kwargs):
-        pass
+    @staticmethod
+    def __create_courier(email, password, **kwargs):
+        User.objects.create_user(
+            email=email,
+            password=password,
+            tenant_type=kwargs['tenant_type']
+        )
+
+    @staticmethod
+    def user_exists(email_address: str):
+        try:
+            User.objects.get(email=email_address)
+        except Exception as e:
+            return False
+        return True

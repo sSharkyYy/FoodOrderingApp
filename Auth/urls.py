@@ -25,5 +25,5 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
     path('registration-chooser/', RegistrationChooser.as_view(), name='registration_chooser'),
-    path('registration/<int:user_type>/', Registration.as_view(), name='registration'),
+    path('registration/<str:user_type>/', Registration.as_view(), name='registration'),
 ]

@@ -43,10 +43,10 @@
       text-align: center;
     }
   </style>
-<div class="row">
-  <div class="col-4"><a href="{% url 'Auth:registration' 1 %}">Restaurant</a></div>
-  <div class="col-4"><a href="{% url 'Auth:registration' 2 %}">Customer</a></div>
-  <div class="col-4"><a href="{% url 'Auth:registration' 3 %}">Courier</a></div>
-</div>
+  <div class="row">
+    <div class="col-4"><a href="{% url 'Auth:registration' user_type='restaurant' %}">Restaurant</a></div>
+    <div class="col-4"><a href="{% url 'Auth:registration' user_type='customer' %}">Customer</a></div>
+    <div class="col-4"><a href="{% url 'Auth:registration' user_type='courier' %}">Courier</a></div>
+  </div>
 
 {% endblock %}

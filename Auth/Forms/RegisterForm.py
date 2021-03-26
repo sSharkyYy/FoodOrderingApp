@@ -3,13 +3,14 @@ from django.core.exceptions import ValidationError
 from django.forms import Form, EmailField, CharField, PasswordInput
 
 from Auth.models import User
+from Auth.services.UserService import UserService
 
 
 class RegisterForm:
 
     @staticmethod
-    def get_form(user_type:int):
-        user_type = User.UserTypes(user_type).name.lower()
+    def get_form(user_type: str):
+        user_type = User.UserTypes[user_type].name.lower()
 
         form = RegisterForm.__dict__.get(f'_RegisterForm__{user_type.capitalize()}Form')
 
@@ -24,6 +25,12 @@ class RegisterForm:
                              help_text=password_validators_help_text_html())
         new_password = CharField(required=True, max_length=255, widget=PasswordInput,
                                  help_text=password_validators_help_text_html())
+
+        def clean_email(self):
+            email = self.cleaned_data.get('email', None)
+            if UserService.user_exists(email):
+                raise ValidationError('Account already exists with given e-mail')
+            return email
 
         def clean_password(self):
             password = self.cleaned_data.get('password', None)

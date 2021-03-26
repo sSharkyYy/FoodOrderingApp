@@ -15,27 +15,19 @@ class UserManager(BaseUserManager):
     def _create_user(self, email, password, **extra_fields):
         """Create and save a User with the given email and password."""
         if not email:
-            raise ValueError('The given email must be set')
+            raise ValueError('Email can not be empty')
         email = self.normalize_email(email)
+        print(extra_fields)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, password, **extra_fields):
         """Create and save a regular User with the given email and password."""
-        if type(email) == dict:
-            password = email.get('new_password')
-            extra_fields = email
-            email = email.get('email')
-            del extra_fields['email']
-            del extra_fields['new_password']
-            del extra_fields['new_password_2']
-            print(password)
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        extra_fields.setdefault('is_active', False)
-
+        extra_fields.setdefault('is_active', True)
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
