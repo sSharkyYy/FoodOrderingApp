@@ -40,6 +40,7 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=50)
     styleID = models.ForeignKey('Styles', on_delete=models.CASCADE)
     openTime = models.CharField(max_length=50)
+    password = models.CharField
 
 
 class Dish(models.Model):
