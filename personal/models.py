@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 
 class Styles(models.Model):
@@ -66,9 +67,19 @@ class Dish(models.Model):
     price = models.IntegerField()
     restaurant = models.ForeignKey('RestaurantProfile', on_delete=models.CASCADE)
     discount_price = models.IntegerField(blank=True, null=True)
+    discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
     allergen_free = models.ForeignKey('AllergenFree', on_delete=models.CASCADE, null=True, blank=True)
     picture = models.ImageField(upload_to='dishes/')
+
+    def get_price(self):
+        if self.discount_price is None:
+            return self.price
+        now = timezone.now()
+        # Akciós időszak
+        if self.discount_start_date < now and self.discount_end_date > now:
+            return self.discount_price
+        return self.price
 
     def __str__(self):
         return self.name
