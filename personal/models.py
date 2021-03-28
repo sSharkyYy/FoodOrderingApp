@@ -13,9 +13,15 @@ class Types(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class AllergenFree(models.Model):
     allergenfree = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.allergenfree
 
 
 class City(models.Model):
@@ -55,11 +61,14 @@ class RestaurantProfile(Profile):
 class Dish(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
-    TypeID = models.ForeignKey('Types', on_delete=models.CASCADE)
-    StyleID = models.ForeignKey('Styles', on_delete=models.CASCADE)
-    Price = models.IntegerField()
-    RestaurantID = models.ForeignKey('RestaurantProfile', on_delete=models.CASCADE)
+    type = models.ForeignKey('Types', on_delete=models.CASCADE)
+    style = models.ForeignKey('Styles', on_delete=models.CASCADE)
+    price = models.IntegerField()
+    restaurant = models.ForeignKey('RestaurantProfile', on_delete=models.CASCADE)
     discount_price = models.IntegerField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
-    allergenfreeID = models.ForeignKey('AllergenFree', on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='Dishes/')
+    allergen_free = models.ForeignKey('AllergenFree', on_delete=models.CASCADE, null=True, blank=True)
+    picture = models.ImageField(upload_to='dishes/')
+
+    def __str__(self):
+        return self.name
