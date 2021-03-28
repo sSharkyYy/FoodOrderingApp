@@ -5,6 +5,9 @@ from django.db import models
 class Styles(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Types(models.Model):
     name = models.CharField(max_length=50)
@@ -18,22 +21,24 @@ class AllergenFree(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Profile(models.Model):
+    cityID = models.ForeignKey('City', on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     class Meta:
         abstract = True
 
 
 class CustomerProfile(Profile):
-    name = models.CharField(max_length=50)
-    cityID = models.ForeignKey('City', on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=10)
 
 
-class DeliveryProfile(Profile):
-    name = models.CharField(max_length=50)
-    cityID = models.ForeignKey('City', on_delete=models.CASCADE)
+class CourierProfile(Profile):
     divident = models.IntegerField
     phone_number = models.CharField(max_length=10)
     work_start_time = models.TimeField()
@@ -42,7 +47,6 @@ class DeliveryProfile(Profile):
 
 class RestaurantProfile(Profile):
     name = models.CharField(max_length=50)
-    cityID = models.ForeignKey('City', on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
     styleID = models.ForeignKey('Styles', on_delete=models.CASCADE)
     openTime = models.CharField(max_length=50)

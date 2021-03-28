@@ -11,10 +11,12 @@ class UserService:
         method.__get__(UserService)(**kwargs)
 
     @staticmethod
-    def __create_restaurant(email, password, **kwargs):
+    def __create_restaurant(email, password, first_name, last_name, **kwargs):
         User.objects.create_user(
             email,
             password,
+            first_name,
+            last_name,
             tenant_type=kwargs['tenant_type']
         )
 

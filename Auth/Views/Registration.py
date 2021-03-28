@@ -1,5 +1,6 @@
+from django.contrib import messages
 from django.http import HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from Auth.Forms.RegisterForm import RegisterForm
@@ -30,6 +31,8 @@ class Registration(View):
         try:
             UserService.create_user(user_type=user_type.name, **form.cleaned_data)
         except Exception as e:
-            raise e
+            print(e)
+            messages.error(request, "Couldn't create user")
+            return render(request, 'Auth/registration.html', context={'form': form})
 
-        return render(request, 'Auth/registration.html', context={'form': form})
+        return redirect('/')
