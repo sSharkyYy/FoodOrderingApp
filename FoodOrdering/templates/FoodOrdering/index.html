@@ -4,6 +4,7 @@
   {% if request.user.tenant_type == 1 %}
     {% include 'FoodOrdering/Restaurant/actions.html' %}
   {% endif %}
+
   <div class="container">
     {% for restaurant in object_list %}
       {% include  'FoodOrdering/Restaurant/restaurant_list_item.html' with value=restaurant %}

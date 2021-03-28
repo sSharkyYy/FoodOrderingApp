@@ -5,7 +5,7 @@ class DishService:
 
     @staticmethod
     def get_dishes(restaurant_profile=None):
-        qs = Dish.objects.select_related('TypeID').select_related('StyleID')
+        qs = Dish.objects.select_related('type').select_related('style')
         if restaurant_profile is None:
             return qs
         return qs.filter(RestaurantID=restaurant_profile.pk)
