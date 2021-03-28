@@ -1,19 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% for dish in dishes %}
-    <div class="card my-1">
-      <div class="card-header">{{ dish.name }}</div>
+
+  {% for dish_category in dish_categories %}
+    <div class="card my-2">
+      <div class="card-header">{{ dish_category.name }}</div>
       <div class="card-body">
-        <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
-        {{ dish.description }}
-        <br>
-        {{ dish.get_price }}
-        <br>
-        <button class="button">
-          Kosárba
-        </button>
+        <div class="row">
+          {% for dish in dish_category.dish_set.all %}
+            <div class="card my-1">
+              <div class="card-header">{{ dish.name }}</div>
+              <div class="card-body">
+                <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
+                {{ dish.description }}
+                <br>
+                {{ dish.get_price }}
+                <br>
+                <button class="button">
+                  Kosárba
+                </button>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   {% endfor %}
+
+
+
 {% endblock %}
