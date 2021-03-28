@@ -19,10 +19,16 @@ from personal.views import HomeScreenView
 from django.conf import settings
 from django.conf.urls.static import static
 
+import debug_toolbar
+from django.conf import settings
+from django.urls import include, path
+
 urlpatterns = [
+    path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
     path('auth/', include('Auth.urls'), name='auth'),
     path('', include('FoodOrdering.urls')),
+
 ]
 
 if settings.DEBUG:
