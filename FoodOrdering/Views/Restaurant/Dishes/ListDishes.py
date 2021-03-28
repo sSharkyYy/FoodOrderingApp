@@ -14,8 +14,8 @@ class ListDishes(DetailView):
 
     def get_context_data(self, **kwargs):
         self.object: RestaurantProfile = self.get_object()
+
         context = super().get_context_data()
-        context['dish_categories'] = DishService.get_dish_categories(
-            ProfileService.get_restaurant_profile(self.request.user))
+        context['dish_categories'] = DishService.get_dish_categories(self.object)
         print(context)
         return context
