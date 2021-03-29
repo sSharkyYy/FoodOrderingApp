@@ -18,8 +18,8 @@ class Types(models.Model):
         return self.name
 
 
-class AllergenFree(models.Model):
-    allergenfree = models.CharField(max_length=50)
+class Allergen(models.Model):
+    allergen = models.CharField(max_length=50)
 
     def __str__(self):
         return self.allergenfree
@@ -69,7 +69,7 @@ class Dish(models.Model):
     discount_price = models.IntegerField(blank=True, null=True)
     discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
-    allergen_free = models.ForeignKey('AllergenFree', on_delete=models.CASCADE, null=True, blank=True)
+    allergen = models.ManyToManyField('Allergen',  null=True, blank=True)
     picture = models.ImageField(upload_to='dishes/')
 
     def get_price(self):
