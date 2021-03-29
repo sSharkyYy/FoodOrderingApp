@@ -2,7 +2,7 @@ from django.contrib.auth.password_validation import validate_password, password_
 from django.core.exceptions import ValidationError
 from django.forms import Form, EmailField, CharField, PasswordInput
 
-from Auth.models import User
+from Auth.models import User, UserTypes
 from Auth.services.UserService import UserService
 
 
@@ -10,7 +10,7 @@ class RegisterForm:
 
     @staticmethod
     def get_form(user_type: str):
-        user_type = User.UserTypes[user_type].name.lower()
+        user_type = UserTypes[user_type].name.lower()
         form = RegisterForm.__dict__.get(f'_RegisterForm__{user_type.capitalize()}Form')
 
         # Default

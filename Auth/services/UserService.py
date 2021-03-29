@@ -1,11 +1,11 @@
-from Auth.models import User
+from Auth.models import User, UserTypes
 
 
 class UserService:
 
     @staticmethod
     def create_user(user_type: str, **kwargs):
-        user_type = User.UserTypes[user_type.upper()]
+        user_type = UserTypes[user_type.upper()]
         kwargs['tenant_type'] = user_type.value
         method = UserService.__dict__.get(f'_UserService__create_{user_type.name.lower()}')
         method.__get__(UserService)(**kwargs)

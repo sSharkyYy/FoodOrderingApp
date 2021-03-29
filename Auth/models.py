@@ -41,21 +41,22 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, password, '', '', **extra_fields)
+
+
+class UserTypes(models.Choices):
+    RESTAURANT = 1
+    CUSTOMER = 2
+    COURIER = 3
 
 
 class User(AbstractUser):
-    class UserTypes(models.Choices):
-        RESTAURANT = 1
-        CUSTOMER = 2
-        COURIER = 3
-
     username = None
     nickname = models.CharField(max_length=254)
     USERNAME_FIELD = 'email'
     email = models.EmailField(_('email address'), unique=True)  # changes email to unique and blank to false
     objects = UserManager()
-    tenant_type = models.IntegerField(choices=UserTypes.choices, default=UserTypes.CUSTOMER)
+    tenant_type = models.IntegerField(choices=UserTypes.choices, default=2)
 
     REQUIRED_FIELDS = []  # removes email from REQUIRED_FIELDS
 
