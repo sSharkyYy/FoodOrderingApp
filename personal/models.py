@@ -25,6 +25,14 @@ class Allergen(models.Model):
         return self.allergenfree
 
 
+class DishAndAllergen(models.Model):
+    allergen = models.ManyToManyField('Allergen',  blank=True)
+    dish = models.ManyToManyField('Dish',  blank=True)
+
+    def __str__(self):
+        return self.allergen+self.dish
+
+
 class City(models.Model):
     name = models.CharField(max_length=50)
 
@@ -69,7 +77,6 @@ class Dish(models.Model):
     discount_price = models.IntegerField(blank=True, null=True)
     discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
-    allergen = models.ManyToManyField('Allergen',  null=True, blank=True)
     picture = models.ImageField(upload_to='dishes/')
 
     def get_price(self):

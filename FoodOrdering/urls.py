@@ -17,6 +17,7 @@ from django.urls import path
 
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
 from FoodOrdering.Views.Restaurant.Edit import EditRestaurant
+from FoodOrdering.Views.Restaurant.EditCategories import EditCategories
 from FoodOrdering.Views.Restaurant.Dishes.ListDishes import ListDishes
 from FoodOrdering.Views.Restaurant.ListRestaurants import ListRestaurants
 
@@ -24,6 +25,7 @@ app_name = 'FoodOrdering'
 urlpatterns = [
     path('', ListRestaurants.as_view(), name='home'),
     path('restaurants/edit/', EditRestaurant.as_view(), name='edit_restaurant'),
+    path('restaurants/editCategory/', EditCategories.as_view(), name='edit_categories'),
     path('restaurants/dishes/add', AddDish.as_view(), name='add_dish'),
     path('restaurants/<int:pk>/dishes/', ListDishes.as_view(), name='list_dishes'),
     path('restaurants/<int:pk>/dishes/edit', ListDishes.as_view(), name='edit_dish'),
