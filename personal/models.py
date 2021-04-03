@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -17,6 +18,9 @@ class Types(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('FoodOrdering:edit_categories', kwargs={'pk': self.pk})
+
 
 class Allergen(models.Model):
     allergen = models.CharField(max_length=50)
@@ -26,11 +30,11 @@ class Allergen(models.Model):
 
 
 class DishAndAllergen(models.Model):
-    allergen = models.ManyToManyField('Allergen',  blank=True)
-    dish = models.ManyToManyField('Dish',  blank=True)
+    allergen = models.ManyToManyField('Allergen', blank=True)
+    dish = models.ManyToManyField('Dish', blank=True)
 
     def __str__(self):
-        return self.allergen+self.dish
+        return self.allergen + self.dish
 
 
 class City(models.Model):

@@ -4,11 +4,11 @@
     <form method="post">
       {% csrf_token %}
       <fildset class="form-group">
-        <legend class="border-bottom mb-4">Delete Types</legend>
+        <legend class="border-bottom mb-4">Törlés megerősítés</legend>
         <h4>Biztosan törlöd? "{{ object.name }}"</h4>
         <div class="form-group">
-          <button class="btn btn-outline-danger" type="submit">Yes,Delete</button>
-          <a class="btn btn-outline-secondary" href="{% url 'FoodOrdering:home' %}">Cancel</a>
+          <button type="submit">Igen</button>
+          <a href="{% url 'FoodOrdering:home' %}">Mégsem</a>
         </div>
       </fildset>
     </form>

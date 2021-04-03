@@ -8,5 +8,3 @@ class UpdateType(UpdateView):
     template_name = 'FoodOrdering/Restaurant/Types/type_update_form.html'
 
     fields = ['name']
-
-
