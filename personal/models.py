@@ -13,7 +13,7 @@ class Styles(models.Model):
 
 class Types(models.Model):
     name = models.CharField(max_length=50)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey('RestaurantProfile', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -75,7 +75,7 @@ class Dish(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
     type = models.ForeignKey('Types', on_delete=models.CASCADE)
-    style = models.ForeignKey('Styles', on_delete=models.CASCADE)
+    style = models.ForeignKey('Styles', on_delete=models.CASCADE,blank=True,null=True)
     price = models.IntegerField()
     restaurant = models.ForeignKey('RestaurantProfile', on_delete=models.CASCADE)
     discount_price = models.IntegerField(blank=True, null=True)

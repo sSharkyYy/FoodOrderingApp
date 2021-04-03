@@ -4,7 +4,7 @@ from django.views.generic import CreateView
 from FoodOrdering.Forms.AddCategories import AddCategoriesForm
 from FoodOrdering.services.TypeService import TypeService
 from FoodOrdering.services.ProfileService import ProfileService
-from personal.models import Types
+from personal.models import Types, RestaurantProfile
 
 
 class AddType(CreateView):
@@ -14,10 +14,9 @@ class AddType(CreateView):
 
     def form_valid(self, form):
         self.object: Types = form.save(commit=False)
-        self.object.type: Types = TypeService.get_restaurant_profile(self.request.user)
-
-
+        self.object.owner: RestaurantProfile = ProfileService.get_restaurant_profile(self.request.user)
         return super().form_valid(form)
 
-    def get_success_url(self):
+
+def get_success_url(self):
         return '/'

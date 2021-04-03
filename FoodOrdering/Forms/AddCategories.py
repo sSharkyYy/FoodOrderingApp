@@ -6,4 +6,4 @@ from personal.models import Types
 class AddCategoriesForm(ModelForm):
     class Meta:
         model = Types
-        exclude = ['owner_id']
+        exclude = ['owner']
