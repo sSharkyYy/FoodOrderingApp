@@ -22,15 +22,21 @@ from FoodOrdering.Views.Restaurant.Edit import EditRestaurant
 from FoodOrdering.Views.Restaurant.EditCategories import EditCategories
 from FoodOrdering.Views.Restaurant.Dishes.ListDishes import ListDishes
 from FoodOrdering.Views.Restaurant.ListRestaurants import ListRestaurants
+from FoodOrdering.Views.Restaurant.Types.UpdateType import UpdateType
+from FoodOrdering.Views.Restaurant.Types.DeleteType import DeleteType
 
 app_name = 'FoodOrdering'
 urlpatterns = [
     path('', ListRestaurants.as_view(), name='home'),
     path('restaurants/edit/', EditRestaurant.as_view(), name='edit_restaurant'),
-    path('restaurants/editCategory/', EditCategories.as_view(), name='edit_categories'),
     path('restaurants/dishes/add', AddDish.as_view(), name='add_dish'),
+    # path('restaurants/editCategory/', EditCategories.as_view(), name='list_categories'),
+    path('restaurants/types/<int:pk>/edit', UpdateType.as_view(), name='edit_categories'),
+    path('restaurants/types/<int:pk>/delete', DeleteType.as_view(), name='delete_categories'),
+    # path('car/<int:pk>/delete', login_required(CarDeleteView.as_view()), name='car-delete'),
     path('restaurants/types', ListTypes.as_view(), name='list_types'),
     path('restaurants/types/add', AddType.as_view(), name='add_type'),
+    # path('restaurants/<int:pk>/delete', DeleteType.as_view(), name='delete_type'),
     path('restaurants/<int:pk>/dishes/', ListDishes.as_view(), name='list_dishes'),
     path('restaurants/<int:pk>/dishes/edit', ListDishes.as_view(), name='edit_dish'),
     path('restaurants/<int:pk>/dishes/remove', ListDishes.as_view(), name='remove_dish'),

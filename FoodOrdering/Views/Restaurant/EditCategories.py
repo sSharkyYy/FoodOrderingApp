@@ -30,5 +30,5 @@ class EditCategories(PermissionRequiredMixin, LoginRequiredMixin, View):
                 obj.user = self.request.user
             obj.save()
             messages.success(request, 'Profile Save')
-            return redirect('/')
+            return redirect('FoodOrdering:list_types')
         return render(request, self.template, {'form': form})

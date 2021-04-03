@@ -18,12 +18,8 @@
               <br>
               {{ dish.get_price }}
               <br>
-              <button class="button">
-                Módosít
-              </button>
-              <button class="button">
-                Töröl
-              </button>
+              <button type="submit" onclick="location.href='{% url 'FoodOrdering:edit_categories' type.id  %}'" >Módosít</button>
+              <button type="submit" onclick="location.href='{% url 'FoodOrdering:delete_categories' type.id  %}'" >Töröl</button>
             </div>
           </div>
         {% endfor %}
