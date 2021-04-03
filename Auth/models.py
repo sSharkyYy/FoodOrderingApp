@@ -20,6 +20,8 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.first_name = first_name
         user.last_name = last_name
+        if 'nickname' in extra_fields:
+            user.nickname = extra_fields['nickname']
         user.set_password(password)
         user.save(using=self._db)
         return user

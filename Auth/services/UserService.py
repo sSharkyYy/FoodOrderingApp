@@ -11,30 +11,35 @@ class UserService:
         method.__get__(UserService)(**kwargs)
 
     @staticmethod
-    def __create_restaurant(email, password, first_name, last_name, **kwargs):
+    def __create_restaurant(email, password, first_name, last_name, tenant_type, **kwargs):
         User.objects.create_user(
             email,
             password,
             first_name,
             last_name,
-            tenant_type=kwargs['tenant_type']
+            tenant_type=tenant_type,
         )
 
     @staticmethod
-    def __create_customer(email, password, nick_name, **kwargs):
+    def __create_customer(email, password, nickname, first_name, last_name, tenant_type, **kwargs):
+        print(kwargs)
         User.objects.create_user(
             email=email,
             password=password,
-            nick_name=nick_name,
-            tenant_type=kwargs['tenant_type']
+            nickname=nickname,
+            first_name=first_name,
+            last_name=last_name,
+            tenant_type=tenant_type
         )
 
     @staticmethod
-    def __create_courier(email, password, **kwargs):
+    def __create_courier(email, password, first_name, last_name, tenant_type, **kwargs):
         User.objects.create_user(
             email=email,
             password=password,
-            tenant_type=kwargs['tenant_type']
+            first_name=first_name,
+            last_name=last_name,
+            tenant_type=tenant_type
         )
 
     @staticmethod
