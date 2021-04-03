@@ -10,3 +10,4 @@ class ListRestaurants(ListView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user__tenant_type=UserTypes.RESTAURANT.value).select_related('user')
+    

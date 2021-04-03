@@ -16,6 +16,8 @@ Including another URLconf
 from django.urls import path
 
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
+from FoodOrdering.Views.Restaurant.Types.AddType import AddType
+from FoodOrdering.Views.Restaurant.Types.ListTypes import ListTypes
 from FoodOrdering.Views.Restaurant.Edit import EditRestaurant
 from FoodOrdering.Views.Restaurant.EditCategories import EditCategories
 from FoodOrdering.Views.Restaurant.Dishes.ListDishes import ListDishes
@@ -27,6 +29,8 @@ urlpatterns = [
     path('restaurants/edit/', EditRestaurant.as_view(), name='edit_restaurant'),
     path('restaurants/editCategory/', EditCategories.as_view(), name='edit_categories'),
     path('restaurants/dishes/add', AddDish.as_view(), name='add_dish'),
+    path('restaurants/types', ListTypes.as_view(), name='list_types'),
+    path('restaurants/types/add', AddType.as_view(), name='add_type'),
     path('restaurants/<int:pk>/dishes/', ListDishes.as_view(), name='list_dishes'),
     path('restaurants/<int:pk>/dishes/edit', ListDishes.as_view(), name='edit_dish'),
     path('restaurants/<int:pk>/dishes/remove', ListDishes.as_view(), name='remove_dish'),

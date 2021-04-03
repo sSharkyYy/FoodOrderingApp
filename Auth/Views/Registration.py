@@ -21,6 +21,7 @@ class Registration(View):
     def post(self, request, *args, **kwargs):
         try:
             user_type = UserTypes[kwargs.get('user_type', None).upper()]
+            print(user_type)
         except KeyError or AttributeError:
             return HttpResponseBadRequest()
 

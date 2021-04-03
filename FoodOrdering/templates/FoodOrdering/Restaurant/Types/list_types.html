@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="card my-2">
+    <div class="card-header">Kategóriák |
+      <a href="{% url 'FoodOrdering:add_type' %}">Add categories</a>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {% for type in types %}
+          <div class="card my-1">
+            <div class="card-header">{{ type.name }}</div>
+            <div class="card-body">
+              <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
+              {{ dish.description }}
+              <br>
+              {{ dish.get_price }}
+              <br>
+              <button class="button">
+                Módosít
+              </button>
+              <button class="button">
+                Töröl
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
