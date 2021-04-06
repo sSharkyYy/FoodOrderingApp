@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views.generic import DeleteView
 
 from personal.models import Types
@@ -5,5 +6,7 @@ from personal.models import Types
 
 class DeleteType(DeleteView):
     model = Types
-    success_url = '/'
     template_name = 'FoodOrdering/Restaurant/Types/confirm_delete_types.html'
+
+    def get_success_url(self):
+        return reverse('FoodOrdering:list_types')
