@@ -30,7 +30,7 @@ class Allergen(models.Model):
 
 
 class DishAndAllergen(models.Model):
-    allergen = models.ManyToManyField('Allergen', blank=True)
+    allergen = models.ForeignKey('Allergen', blank=True)
     dish = models.ManyToManyField('Dish', blank=True)
 
     def __str__(self):
@@ -82,13 +82,14 @@ class Dish(models.Model):
     discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
     picture = models.ImageField(upload_to='dishes/')
+    allergenes = models.ManyToManyField(Allergen,through=DishAndAllergen)
 
     def get_price(self):
         if self.discount_price is None:
             return self.price
-        now = timezone.now()
+        now = timezone.datetime.date(timezone.now())
         # Akciós időszak
-        if self.discount_start_date < now and self.discount_end_date > now:
+        if self.discount_start_date < now < self.discount_end_date:
             return self.discount_price
         return self.price
 

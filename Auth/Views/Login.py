@@ -1,9 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views.generic.base import View
 
 from Auth.Forms.LoginForm import LoginForm
+from Auth.models import UserTypes, User
+from FoodOrdering.services.ProfileService import ProfileService
+from personal.models import RestaurantProfile
 
 
 class Login(View):
@@ -28,4 +32,14 @@ class Login(View):
 
         messages.success(request, 'Successful login')
         login(request=request, user=user)
+        print(user.tenant_type)
+        if user.tenant_type == UserTypes.RESTAURANT.value:
+            print('hello')
+            try:
+                Profile = ProfileService.get_restaurant_profile(user)
+
+                return redirect('/')
+            except RestaurantProfile.DoesNotExist:
+                return redirect(reverse('FoodOrdering:edit_restaurant'))
+
         return redirect('/')
