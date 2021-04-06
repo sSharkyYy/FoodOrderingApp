@@ -30,8 +30,8 @@ class Allergen(models.Model):
 
 
 class DishAndAllergen(models.Model):
-    allergen = models.ForeignKey('Allergen', blank=True)
-    dish = models.ManyToManyField('Dish', blank=True)
+    allergen = models.ForeignKey(Allergen, on_delete=models.CASCADE)
+    dish = models.ForeignKey('Dish', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.allergen + self.dish
@@ -75,14 +75,14 @@ class Dish(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
     type = models.ForeignKey('Types', on_delete=models.CASCADE)
-    style = models.ForeignKey('Styles', on_delete=models.CASCADE,blank=True,null=True)
+    style = models.ForeignKey('Styles', on_delete=models.CASCADE, blank=True, null=True)
     price = models.IntegerField()
     restaurant = models.ForeignKey('RestaurantProfile', on_delete=models.CASCADE)
     discount_price = models.IntegerField(blank=True, null=True)
     discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
     picture = models.ImageField(upload_to='dishes/')
-    allergenes = models.ManyToManyField(Allergen,through=DishAndAllergen)
+    allergen = models.ManyToManyField('Allergen', through=DishAndAllergen)
 
     def get_price(self):
         if self.discount_price is None:
