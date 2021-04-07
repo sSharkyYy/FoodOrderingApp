@@ -26,15 +26,7 @@ class Allergen(models.Model):
     allergen = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.allergenfree
-
-
-class DishAndAllergen(models.Model):
-    allergen = models.ForeignKey(Allergen, on_delete=models.CASCADE)
-    dish = models.ForeignKey('Dish', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.allergen + self.dish
+        return self.allergen
 
 
 class City(models.Model):
@@ -45,7 +37,7 @@ class City(models.Model):
 
 
 class Profile(models.Model):
-    cityID = models.ForeignKey('City', on_delete=models.CASCADE)
+    city = models.ForeignKey('City', on_delete=models.CASCADE)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
@@ -67,7 +59,7 @@ class CourierProfile(Profile):
 class RestaurantProfile(Profile):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
-    styleID = models.ForeignKey('Styles', on_delete=models.CASCADE)
+    style = models.ForeignKey('Styles', on_delete=models.CASCADE, blank=True, null=True)
     openTime = models.CharField(max_length=50)
 
 
@@ -82,7 +74,7 @@ class Dish(models.Model):
     discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
     picture = models.ImageField(upload_to='dishes/')
-    allergen = models.ManyToManyField('Allergen', through=DishAndAllergen)
+    allergen = models.ManyToManyField('Allergen', blank=True, null=True)
 
     def get_price(self):
         if self.discount_price is None:
