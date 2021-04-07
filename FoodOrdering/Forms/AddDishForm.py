@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from personal.models import Dish
+from personal.models import Dish, Types
 
 
 class AddDishForm(ModelForm):
