@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
+from FoodOrdering.Views.Cart.Add import AddToCart
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
 from FoodOrdering.Views.Restaurant.Dishes.EditDish import EditDish
 from FoodOrdering.Views.Restaurant.Types.AddType import AddType
@@ -40,4 +41,6 @@ urlpatterns = [
     path('restaurants/<int:pk>/dishes/', ListDishes.as_view(), name='list_dishes'),
     path('restaurants/<int:pk>/dishes/edit', EditDish.as_view(), name='edit_dish'),
     path('restaurants/<int:pk>/dishes/remove', ListDishes.as_view(), name='remove_dish'),
+
+    path('add-to-cart/<int:dish>/', AddToCart.as_view(), name='add_to_cart')
 ]

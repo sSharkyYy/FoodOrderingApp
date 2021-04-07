@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone
 
@@ -87,3 +88,49 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DishToCart(models.Model):
+    cart = models.ForeignKey('Cart', on_delete=models.CASCADE)
+    dish = models.ForeignKey('Dish', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=True)
+    session = models.CharField(max_length=254, null=True, blank=True)
+    items = models.ManyToManyField(Dish, blank=True, through=DishToCart)
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.user is None and self.session is None:
+            raise ValueError('Cart must have a user or a session!')
+        super().save(force_insert, force_update, using, update_fields)
+
+    def add_dish(self, dish: Dish, quantity=1):
+        if self.pk is None:
+            raise ValueError('Cart must be saved before adding items to it!')
+
+        if quantity is None:
+            quantity = 1
+
+        cart_o, created = DishToCart.objects.get_or_create(cart=self, dish=dish)
+        cart_o.quantity += quantity
+        cart_o.save()
+
+    @staticmethod
+    def get_cart(user=None, session=None):
+        if (user is None or not user.is_authenticated) and session is None:
+            raise ValueError('User or session must be provided to get a cart')
+
+        if user.is_authenticated:
+            try:
+                cart = Cart.objects.filter(user=user).get()
+            except Cart.DoesNotExist:
+                cart = Cart(user=user)
+        else:
+            try:
+                cart = Cart.objects.filter(session=session).get()
+            except Cart.DoesNotExist:
+                cart = Cart(session=session)
+        cart.save()
+        return cart
