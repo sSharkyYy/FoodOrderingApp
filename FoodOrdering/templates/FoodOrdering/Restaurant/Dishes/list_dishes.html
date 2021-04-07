@@ -3,28 +3,37 @@
 {% block content %}
 
   {% for dish_category in dish_categories %}
-    <div class="card my-2">
-      <div class="card-header">{{ dish_category.name }}</div>
-      <div class="card-body">
-        <div class="row">
-          {% for dish in dish_category.dish_set.all %}
-            <div class="card my-1">
-              <div class="card-header">{{ dish.name }}</div>
-              <div class="card-body">
-                <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
-                {{ dish.description }}
-                <br>
-                {{ dish.get_price }} Ft.
-                <br>
-                <button class="button">
-                  Kosárba
-                </button>
-              </div>
+    {% with dish_category.dish_set.all as dishes %}
+      {% if dishes %}
+        <div class="card my-2">
+          <div class="card-header">{{ dish_category.name }}</div>
+          <div class="card-body">
+            <div class="row">
+              {% for dish in dishes %}
+                <div class="card my-1">
+                  <div class="card-header">{{ dish.name }}</div>
+                  <div class="card-body">
+                    <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
+                    {{ dish.description }}
+                    <br>
+                    {{ dish.get_price }} Ft.
+                    <br>
+                    <button class="button">
+                      Kosárba
+                    </button>
+                    {% if object.user == request.user %}
+                      <a href="{% url 'FoodOrdering:edit_dish' dish.pk %}">
+                        Szerkesztés
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
             </div>
-          {% endfor %}
+          </div>
         </div>
-      </div>
-    </div>
+      {% endif %}
+    {% endwith %}
   {% endfor %}
 
 
