@@ -74,7 +74,7 @@ class Dish(models.Model):
     discount_start_date = models.DateField(blank=True, null=True)
     discount_end_date = models.DateField(blank=True, null=True)
     picture = models.ImageField(upload_to='dishes/')
-    allergen = models.ManyToManyField('Allergen', blank=True, null=True)
+    allergen = models.ManyToManyField('Allergen', blank=True)
 
     def get_price(self):
         if self.discount_price is None:
