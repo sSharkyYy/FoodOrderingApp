@@ -100,6 +100,7 @@ class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=True)
     session = models.CharField(max_length=254, null=True, blank=True)
     items = models.ManyToManyField(Dish, blank=True, through=DishToCart)
+    is_ordered = models.BooleanField(default=False)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.user is None and self.session is None:
@@ -117,6 +118,10 @@ class Cart(models.Model):
         cart_o.quantity += quantity
         cart_o.save()
 
+    def set_ordered(self):
+        self.is_ordered = True
+        self.save()
+
     @staticmethod
     def get_cart(user=None, session=None):
         if (user is None or not user.is_authenticated) and session is None:
@@ -124,13 +129,19 @@ class Cart(models.Model):
 
         if user.is_authenticated:
             try:
-                cart = Cart.objects.filter(user=user).get()
+                cart = Cart.objects.filter(user=user).exclude(is_ordered=True).prefetch_related('items').get()
             except Cart.DoesNotExist:
                 cart = Cart(user=user)
         else:
             try:
-                cart = Cart.objects.filter(session=session).get()
+                cart = Cart.objects.filter(session=session).exclude(is_ordered=True).prefetch_related('items').get()
             except Cart.DoesNotExist:
                 cart = Cart(session=session)
         cart.save()
         return cart
+
+
+class Order(models.Model):
+    name = models.CharField(max_length=254)
+    address = models.CharField(max_length=254)
+    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
