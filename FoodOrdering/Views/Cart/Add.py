@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db.models import Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -8,6 +9,7 @@ from personal.models import Dish, Cart
 
 class AddToCart(View):
 
+    @transaction.atomic
     def get(self, request, *args, **kwargs):
         dish = kwargs.get('dish')
         quantity = request.GET.get('quantity', None)
