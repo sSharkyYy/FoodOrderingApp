@@ -1,8 +1,6 @@
-from django.core.paginator import Paginator
 from django.views.generic import DetailView
 
 from FoodOrdering.services.DishService import DishService
-from FoodOrdering.services.ProfileService import ProfileService
 from personal.models import RestaurantProfile
 
 
