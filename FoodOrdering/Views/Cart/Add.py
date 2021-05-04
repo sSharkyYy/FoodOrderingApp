@@ -22,9 +22,13 @@ class AddToCart(View):
         dish = get_object_or_404(Dish, pk=dish)
 
         if not dish.restaurant.is_open():
+            print('Is_open', dish.restaurant.is_open())
             return HttpResponse('Restaurant is closed', status=400)
 
         cart = Cart.get_cart(request.user, request.session.session_key)
-        cart.add_dish(dish, quantity)
+        try:
+            cart.add_dish(dish, quantity)
+        except Cart.MultipleRestaurantInCartError:
+            return HttpResponse('Egyszerre csak 1 étteremből rendelhetsz.', status=400)
 
         return HttpResponse('OK')

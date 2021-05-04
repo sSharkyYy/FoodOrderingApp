@@ -5,7 +5,7 @@ from django.views import View
 
 from FoodOrdering.Forms.CreateOrder import CreateOrderForm
 from FoodOrdering.services.ProfileService import ProfileService
-from personal.models import Cart, Order
+from personal.models import Cart, Order, RestaurantProfile
 
 
 class CreateOrder(View):
@@ -30,6 +30,9 @@ class CreateOrder(View):
         cart = Cart.get_cart(request.user, request.session.session_key)
         address = None
         name = None
+
+        if cart.restaurant is None or cart.restaurant.is_open():
+            return
 
         if not request.user.is_authenticated:
             form = CreateOrderForm(request.POST)

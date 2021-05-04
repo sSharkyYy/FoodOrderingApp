@@ -65,6 +65,7 @@ class RestaurantProfile(Profile):
     open_to = models.TimeField(max_length=50)
 
     def is_open(self, time=timezone.now().time()):
+        print('is_open', self.open_from, time, self.open_to)
         return self.open_from < time < self.open_to
 
 
@@ -101,10 +102,15 @@ class DishToCart(models.Model):
 
 
 class Cart(models.Model):
+    class MultipleRestaurantInCartError(Exception):
+        pass
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=True)
     session = models.CharField(max_length=254, null=True, blank=True)
     items = models.ManyToManyField(Dish, blank=True, through=DishToCart)
     is_ordered = models.BooleanField(default=False)
+
+    restaurant = models.ForeignKey('RestaurantProfile', on_delete=models.SET_NULL, null=True)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.user is None and self.session is None:
@@ -114,6 +120,13 @@ class Cart(models.Model):
     def add_dish(self, dish: Dish, quantity=1):
         if self.pk is None:
             raise ValueError('Cart must be saved before adding items to it!')
+
+        if self.restaurant is None:
+            self.restaurant = dish.restaurant
+            self.save()
+
+        if self.restaurant != dish.restaurant:
+            raise Cart.MultipleRestaurantInCartError()
 
         if quantity is None:
             quantity = 1
