@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <form action="{% url 'FoodOrdering:list_orders' %}">
+    <fieldset>
+      <legend>Rendelések lekérdezése adott időszakra vonatkozóan</legend>
+      {{ form|crispy }}
+      <input type="submit">
+    </fieldset>
+  </form>
+
+  {% if object_list %}
+    <div class="row w-100">
+      <table class="col-12">
+        <tr class="row">
+          <th class="col-3">Rendelés id</th>
+          <th class="col-3">Rendelés dátum</th>
+          <th class="col-3">Rendelés cím</th>
+          <th class="col-3">Rendelés összeg</th>
+        </tr>
+        {% for object in object_list %}
+          <tr class="row">
+            <td class="col-3">{{ object.pk }} </td>
+            <td class="col-3">{{ object.order_date }} </td>
+            <td class="col-3">{{ object.address }} </td>
+            <td class="col-3">{{ object.amount }} </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% else %}
+    Az adott időszakban nem volt megrendelés!
+  {% endif %}
+{% endblock %}
