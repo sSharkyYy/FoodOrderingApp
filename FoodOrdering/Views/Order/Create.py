@@ -31,7 +31,7 @@ class CreateOrder(View):
         address = None
         name = None
 
-        if cart.restaurant is None or cart.restaurant.is_open():
+        if cart.restaurant is None or not cart.restaurant.is_open():
             return
 
         if not request.user.is_authenticated:
