@@ -2,11 +2,12 @@ $(document).ready(function () {
   $('.add-to-card').on('click', function (ev) {
     var $target = $(ev.target);
     var id = $target.data('cartid');
-    console.log(id)
+    var quantity = $('.quantity-' + id)?.val();
     $.ajax({
       url: '/add-to-cart/' + id + '/',
+      method: 'get',
       data: {
-        dish_id: id
+        'quantity': quantity
       },
       success: function () {
         alert('Termék a kosáraba került')
