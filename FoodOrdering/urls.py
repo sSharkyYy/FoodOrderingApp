@@ -16,6 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from FoodOrdering.Views.Cart.Add import AddToCart
+from FoodOrdering.Views.Cart.Clear import ClearCart
 from FoodOrdering.Views.Cart.List import ListCartItems
 from FoodOrdering.Views.Order.Create import CreateOrder
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
@@ -46,6 +47,7 @@ urlpatterns = [
 
     path('cart/', ListCartItems.as_view(), name='cart'),
     path('add-to-cart/<int:dish>/', AddToCart.as_view(), name='add_to_cart'),
+    path('clear-cart/', ClearCart.as_view(), name='clear_cart'),
     # path('remove-from-cart/<int:dish>/', AddToCart.as_view(), name='remove-from-cart'),
     # path('update-quantity/<int:dish>/', AddToCart.as_view(), name='update-quantity'),
 
