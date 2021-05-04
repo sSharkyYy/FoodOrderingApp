@@ -17,6 +17,7 @@ from django.urls import path
 
 from FoodOrdering.Views.Cart.Add import AddToCart
 from FoodOrdering.Views.Cart.List import ListCartItems
+from FoodOrdering.Views.Order.Create import CreateOrder
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
 from FoodOrdering.Views.Restaurant.Dishes.EditDish import EditDish
 from FoodOrdering.Views.Restaurant.Types.AddType import AddType
@@ -45,4 +46,9 @@ urlpatterns = [
 
     path('cart/', ListCartItems.as_view(), name='cart'),
     path('add-to-cart/<int:dish>/', AddToCart.as_view(), name='add_to_cart'),
+    # path('remove-from-cart/<int:dish>/', AddToCart.as_view(), name='remove-from-cart'),
+    # path('update-quantity/<int:dish>/', AddToCart.as_view(), name='update-quantity'),
+
+    path('order/', CreateOrder.as_view(), name='order'),
+
 ]

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+{% block content %}
+  <form action="{% url 'FoodOrdering:order' %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Megrendelés" class="button">
+  </form>
+{% endblock %}

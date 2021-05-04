@@ -14,7 +14,7 @@
         </tr>
       {% endfor %}
     </table>
-    <a href="#" class="button" id="orderBtn">
+    <a href="{% url 'FoodOrdering:order' %}" class="button" id="orderBtn">
       Megrendelés
     </a>
   {% else %}
