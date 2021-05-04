@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.db.models import Q
+from django.utils import timezone
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
@@ -17,9 +17,13 @@ class AddToCart(View):
             try:
                 quantity = int(quantity)
             except TypeError:
-                HttpResponse('Invalid quantity', status=401)
+                return HttpResponse('Invalid quantity', status=400)
 
         dish = get_object_or_404(Dish, pk=dish)
+
+        if not dish.restaurant.is_open():
+            return HttpResponse('Restaurant is closed', status=400)
+
         cart = Cart.get_cart(request.user, request.session.session_key)
         cart.add_dish(dish, quantity)
 

@@ -61,7 +61,11 @@ class RestaurantProfile(Profile):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     style = models.ForeignKey('Styles', on_delete=models.CASCADE, blank=True, null=True)
-    openTime = models.CharField(max_length=50)
+    open_from = models.TimeField(max_length=50)
+    open_to = models.TimeField(max_length=50)
+
+    def is_open(self, time=timezone.now().time()):
+        return self.open_from < time < self.open_to
 
 
 class Dish(models.Model):

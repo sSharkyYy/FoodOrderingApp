@@ -13,8 +13,12 @@ $(document).ready(function () {
       data: {
         'quantity': quantity
       },
-      success: function () {
-        alert('Termék a kosáraba került')
+      complete: function (xhr) {
+        if (xhr.status == 200)
+          alert('Termék a kosáraba került')
+        else {
+          alert(xhr.responseText)
+        }
       }
     })
   })
