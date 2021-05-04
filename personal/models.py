@@ -65,7 +65,6 @@ class RestaurantProfile(Profile):
     open_to = models.TimeField(max_length=50)
 
     def is_open(self, time=timezone.now().time()):
-        print('is_open', self.open_from, time, self.open_to)
         return self.open_from < time < self.open_to
 
 
@@ -82,6 +81,9 @@ class Dish(models.Model):
     picture = models.ImageField(upload_to='dishes/')
     allergen = models.ManyToManyField('Allergen', blank=True)
 
+    available_from = models.DateTimeField(null=True, blank=True)
+    available_to = models.DateTimeField(null=True, blank=True)
+
     def get_price(self):
         if self.discount_price is None:
             return self.price
@@ -90,6 +92,15 @@ class Dish(models.Model):
         if self.discount_start_date < now < self.discount_end_date:
             return self.discount_price
         return self.price
+
+    def is_orderable(self, date_time=timezone.now()):
+        if self.available_from is None and self.available_to is None:
+            return True
+        if self.available_from is not None and self.available_to is None:
+            return self.available_from < date_time
+        if self.available_from is None and self.available_to is not None:
+            return date_time < self.available_to
+        return self.available_from < date_time < self.available_to
 
     def __str__(self):
         return self.name

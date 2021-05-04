@@ -54,5 +54,6 @@ class CreateOrder(View):
         order = Order(name=name, address=address, cart=cart)
         order.save()
         cart.set_ordered()
+
         messages.success(request, 'Sikeres megrendelés!')
         return redirect('/')
