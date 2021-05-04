@@ -3,6 +3,9 @@ $(document).ready(function () {
     var $target = $(ev.target);
     var id = $target.data('cartid');
     var quantity = $('.quantity-' + id)?.val();
+    if (quantity && quantity == 0) {
+      quantity = 1
+    }
     $.ajax({
       url: '/add-to-cart/' + id + '/',
       method: 'get',
