@@ -8,7 +8,9 @@
       <input type="submit">
     </fieldset>
   </form>
-
+  {% if payment.money__sum %}
+    <h2>Havi költségek: {{ payment.money__sum }}</h2>
+  {% endif %}
   {% if object_list %}
     <div class="row w-100">
       <table class="col-12">

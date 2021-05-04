@@ -1,11 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView
-from django.utils import timezone
-from django.http import HttpResponseBadRequest
+from django.db.models import Sum
 
 from FoodOrdering.Forms.FilterOrdersForm import FilterOrdersForm
 from FoodOrdering.services.ProfileService import ProfileService
-from personal.models import Order
+from personal.models import Order, Payments
 
 
 class FilterOrders(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -23,7 +22,16 @@ class FilterOrders(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super(FilterOrders, self).get_context_data()
-        context['form'] = self.create_form()
+        form = self.create_form()
+        payments = Payments.objects.filter(order__cart__restaurant=self.restaurant)
+
+        if form.is_valid():
+            from_date = form.cleaned_data.get('from_date')
+            to_date = form.cleaned_data.get('to_date')
+            payments = payments.filter(date__range=[from_date, to_date])
+
+        context['payment'] = payments.aggregate(Sum('money'))
+        context['form'] = form
         return context
 
     def create_form(self):
