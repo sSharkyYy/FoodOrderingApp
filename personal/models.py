@@ -170,6 +170,7 @@ class Cart(models.Model):
 
         return cart
 
+
 class OrderStatus(models.Choices):
     Ordered = 1
     UnderDelivery = 2
@@ -182,3 +183,4 @@ class Order(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
     order_date = models.DateTimeField(default=timezone.now)
     status = models.IntegerField(choices=OrderStatus.choices, default=1)
+    amount = models.FloatField(default=0)

@@ -21,6 +21,7 @@ from FoodOrdering.Views.Cart.List import ListCartItems
 from FoodOrdering.Views.Order.Create import CreateOrder
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
 from FoodOrdering.Views.Restaurant.Dishes.EditDish import EditDish
+from FoodOrdering.Views.Restaurant.FilterOrders import FilterOrders
 from FoodOrdering.Views.Restaurant.Types.AddType import AddType
 from FoodOrdering.Views.Restaurant.Types.ListTypes import ListTypes
 from FoodOrdering.Views.Restaurant.Edit import EditRestaurant
@@ -59,5 +60,6 @@ urlpatterns = [
 
 
     path('order/', CreateOrder.as_view(), name='order'),
+    path('list-orders/', FilterOrders.as_view(), name='list_orders'),
 
 ]
