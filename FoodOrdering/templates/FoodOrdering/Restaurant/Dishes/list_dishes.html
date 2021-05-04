@@ -10,25 +10,27 @@
           <div class="card-body">
             <div class="row">
               {% for dish in dishes %}
-                <div class="card my-1">
-                  <div class="card-header">{{ dish.name }}</div>
-                  <div class="card-body">
-                    <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
-                    {{ dish.description }}
-                    <br>
-                    {{ dish.get_price }} Ft.
-                    <br>
-                    <input type="number" min="0" name="quantity" class="quantity-{{ dish.pk }}">
-                    <button class="button add-to-cart" data-cartid="{{ dish.pk }}">
-                      Kosárba
-                    </button>
-                    {% if object.user == request.user %}
-                      <a href="{% url 'FoodOrdering:edit_dish' dish.pk %}">
-                        Szerkesztés
-                      </a>
-                    {% endif %}
+                {% if dish.is_orderable %}
+                  <div class="card my-1">
+                    <div class="card-header">{{ dish.name }}</div>
+                    <div class="card-body">
+                      <img src="{{ dish.picture.url }}" alt="{{ disc.name }}" style="width: 25%">
+                      {{ dish.description }}
+                      <br>
+                      {{ dish.get_price }} Ft.
+                      <br>
+                      <input type="number" min="0" name="quantity" class="quantity-{{ dish.pk }}">
+                      <button class="button add-to-cart" data-cartid="{{ dish.pk }}">
+                        Kosárba
+                      </button>
+                      {% if object.user == request.user %}
+                        <a href="{% url 'FoodOrdering:edit_dish' dish.pk %}">
+                          Szerkesztés
+                        </a>
+                      {% endif %}
+                    </div>
                   </div>
-                </div>
+                {% endif %}
               {% endfor %}
             </div>
           </div>

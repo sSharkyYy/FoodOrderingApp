@@ -17,13 +17,17 @@ class AddToCart(View):
             try:
                 quantity = int(quantity)
             except TypeError:
-                return HttpResponse('Invalid quantity', status=400)
+                return HttpResponse('Érvénytelen mennyiség', status=400)
 
         dish = get_object_or_404(Dish, pk=dish)
 
+        if not dish.is_orderable():
+            return HttpResponse('A termék jelenleg nem rendelhető', status=400)
+
         if not dish.restaurant.is_open():
-            print('Is_open', dish.restaurant.is_open())
-            return HttpResponse('Restaurant is closed', status=400)
+            return HttpResponse('Az étterem jelenleg zárva van. '
+                                f'Legközelebb {dish.restaurant.open_from}-kor nyit',
+                                status=400)
 
         cart = Cart.get_cart(request.user, request.session.session_key)
         try:
