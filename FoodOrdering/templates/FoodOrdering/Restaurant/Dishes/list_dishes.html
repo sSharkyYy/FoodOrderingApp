@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
   {% for dish_category in dish_categories %}
@@ -18,7 +18,7 @@
                     <br>
                     {{ dish.get_price }} Ft.
                     <br>
-                    <button class="button">
+                    <button class="button add-to-cart" data-cartid="{{ dish.pk }}">
                       Kosárba
                     </button>
                     {% if object.user == request.user %}
@@ -35,7 +35,6 @@
       {% endif %}
     {% endwith %}
   {% endfor %}
-
-
-
+  {% url 'FoodOrdering:add_to_cart' 5 %}
+  <script src="{% static 'FoodOrdering/js/common.js' %}"></script>
 {% endblock %}
