@@ -32,14 +32,12 @@ class Login(View):
 
         messages.success(request, 'Successful login')
         login(request=request, user=user)
-        print(user.tenant_type)
         if user.tenant_type == UserTypes.RESTAURANT.value:
-            print('hello')
             try:
                 Profile = ProfileService.get_restaurant_profile(user)
-
                 return redirect('/')
             except RestaurantProfile.DoesNotExist:
                 return redirect(reverse('FoodOrdering:edit_restaurant'))
 
         return redirect('/')
+

@@ -159,8 +159,15 @@ class Cart(models.Model):
 
         return cart
 
+class OrderStatus(models.Choices):
+    Ordered = 1
+    UnderDelivery = 2
+    Delivered = 3
+
 
 class Order(models.Model):
     name = models.CharField(max_length=254)
     address = models.CharField(max_length=254)
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
+    order_date = models.DateTimeField(default=timezone.now)
+    status = models.IntegerField(choices=OrderStatus.choices, default=1)

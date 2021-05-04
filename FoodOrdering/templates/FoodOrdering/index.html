@@ -4,6 +4,9 @@
   {% if request.user.tenant_type == 1 %}
     {% include 'FoodOrdering/Restaurant/actions.html' %}
   {% endif %}
+  {% if request.user.tenant_type == 3 %}
+    {% include 'FoodOrdering/Courier/actions.html' %}
+  {% endif %}
 
   <div class="container">
     {% for restaurant in object_list %}

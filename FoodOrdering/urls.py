@@ -28,6 +28,9 @@ from FoodOrdering.Views.Restaurant.Dishes.ListDishes import ListDishes
 from FoodOrdering.Views.Restaurant.ListRestaurants import ListRestaurants
 from FoodOrdering.Views.Restaurant.Types.UpdateType import UpdateType
 from FoodOrdering.Views.Restaurant.Types.DeleteType import DeleteType
+from FoodOrdering.Views.Courier.Edit import EditCourierTimeInt
+from FoodOrdering.Views.Courier.Orders.ListOrders import ListOrders
+from FoodOrdering.Views.Courier.Orders.UpdateOrders import UpdateOrders
 
 app_name = 'FoodOrdering'
 urlpatterns = [
@@ -44,12 +47,16 @@ urlpatterns = [
     path('restaurants/<int:pk>/dishes/', ListDishes.as_view(), name='list_dishes'),
     path('restaurants/<int:pk>/dishes/edit', EditDish.as_view(), name='edit_dish'),
     path('restaurants/<int:pk>/dishes/remove', ListDishes.as_view(), name='remove_dish'),
-
     path('cart/', ListCartItems.as_view(), name='cart'),
     path('add-to-cart/<int:dish>/', AddToCart.as_view(), name='add_to_cart'),
     path('clear-cart/', ClearCart.as_view(), name='clear_cart'),
     # path('remove-from-cart/<int:dish>/', AddToCart.as_view(), name='remove-from-cart'),
     # path('update-quantity/<int:dish>/', AddToCart.as_view(), name='update-quantity'),
+
+    path('courier/edit/', EditCourierTimeInt.as_view(), name='edit_courier_timeinterval'),
+    path('courier/orders', ListOrders.as_view(), name='list_orders'),
+    path('courier/orders/<int:pk>/edit', UpdateOrders.as_view(), name='edit_order'),
+
 
     path('order/', CreateOrder.as_view(), name='order'),
 

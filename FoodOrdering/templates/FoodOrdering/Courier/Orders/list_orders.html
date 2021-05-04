@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  <div class="card my-2">
+    <div class="card-header">Megrendelések</div>
+    <div class="card-body">
+      <div class="row">
+        {% for order in orders %}
+          {% if order.status == 1 %}
+          <div class="card my-1">
+            <div class="card-header">{{ order.name }}</div>
+            <div class="card-body">
+              {{ order.address }}
+              <br>
+              {{ order.order_date }}
+              <br>
+{#              <button type="submit" onclick="location.href='{% url '' type.id  %}'" >Vállal</button>#}
+{#              <button type="submit" onclick="location.href='{% url '' type.id  %}'" >Nono</button>#}
+              <button type="submit" onclick="location.href='{% url 'FoodOrdering:edit_order' order.id %}'" >Vállal</button>
+              <button type="submit" onclick="location.href=''" >Nono</button>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% if true %}
+
+  <div class="card my-2">
+    <div class="card-header">Elvállalt</div>
+    <div class="card-body">
+      <div class="row">
+        {% for order in orders %}
+          <div class="card my-1">
+            <div class="card-header"></div>
+            <div class="card-body">
+
+              <br>
+
+              <br>
+              {#              <button type="submit" onclick="location.href='{% url '' type.id  %}'" >Vállal</button>#}
+              {#              <button type="submit" onclick="location.href='{% url '' type.id  %}'" >Nono</button>#}
+
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+
+
+
+
+{% endblock %}
