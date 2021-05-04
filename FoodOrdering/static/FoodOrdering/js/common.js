@@ -1,11 +1,12 @@
 $(document).ready(function () {
-  $('.add-to-card').on('click', function (ev) {
+  $('.add-to-cart').on('click', function (ev) {
     var $target = $(ev.target);
     var id = $target.data('cartid');
     var quantity = $('.quantity-' + id)?.val();
-    if (quantity && quantity == 0) {
+    if (!quantity || quantity == 0) {
       quantity = 1
     }
+    console.log(quantity)
     $.ajax({
       url: '/add-to-cart/' + id + '/',
       method: 'get',
