@@ -129,15 +129,17 @@ class Cart(models.Model):
 
         if user.is_authenticated:
             try:
-                cart = Cart.objects.filter(user=user).exclude(is_ordered=True).prefetch_related('items').get()
+                cart = Cart.objects.exclude(is_ordered=True).prefetch_related('items').get(user=user)
             except Cart.DoesNotExist:
                 cart = Cart(user=user)
         else:
             try:
-                cart = Cart.objects.filter(session=session).exclude(is_ordered=True).prefetch_related('items').get()
+                cart = Cart.objects.exclude(is_ordered=True).prefetch_related('items').get(session=session)
             except Cart.DoesNotExist:
                 cart = Cart(session=session)
-        cart.save()
+        if cart.pk is None:
+            cart.save()
+
         return cart
 
 
