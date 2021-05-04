@@ -3,23 +3,30 @@
 {% block content %}
 
 
+
+
   <div class="card my-2">
     <div class="card-header">Megrendelések</div>
     <div class="card-body">
       <div class="row">
         {% for order in orders %}
           {% if order.status == 1 %}
-          <div class="card my-1">
-            <div class="card-header">{{ order.name }}</div>
-            <div class="card-body">
-              {{ order.address }}
-              <br>
-              {{ order.order_date }}
-              <br>
-              <button type="submit" onclick="location.href='{% url 'FoodOrdering:edit_order' order.id %}'" >Vállal</button>
-              <button type="submit" onclick="location.href=''" >Nono</button>
+            <div class="card my-1">
+              <div class="card-header">{{ order.name }}</div>
+              <div class="card-body">
+                {{ order.address }}
+                <br>
+                {{ order.order_date }}
+                <br>
+                <form action="{% url 'FoodOrdering:set_status' %}" method="post">
+                  {% csrf_token %}
+                  <button name="accept" type="submit" value="1">Vállal
+                  </button>
+                  <button name="reject" type="submit" value="1">Nono</button>
+                  <input type="hidden" name="order" value="{{ order.pk }}">
+                </form>
+              </div>
             </div>
-          </div>
           {% endif %}
         {% endfor %}
       </div>
@@ -28,7 +35,7 @@
 
 
   <div class="card my-2">
-    <div class="card-header">Megrendelések - elvállalva </div>
+    <div class="card-header">Megrendelések - elvállalva</div>
     <div class="card-body">
       <div class="row">
         {% for order in orders %}
@@ -40,10 +47,11 @@
                 <br>
                 {{ order.order_date }}
                 <br>
-                {#              <button type="submit" onclick="location.href='{% url '' type.id  %}'" >Vállal</button>#}
-                {#              <button type="submit" onclick="location.href='{% url '' type.id  %}'" >Nono</button>#}
-                <button type="submit" onclick="location.href='{% url 'FoodOrdering:edit_order' order.id %}'" >Kiszállítva</button>
-                <button type="submit" onclick="location.href=''" >Nono</button>
+                <form action="{% url 'FoodOrdering:set_status' %}" method="post">
+                  {% csrf_token %}
+                  <button name="delivered" type="submit" value="1">Kiszállítva</button>
+                  <input type="hidden" name="order" value="{{ order.pk }}">
+                </form>
               </div>
             </div>
           {% endif %}

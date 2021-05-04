@@ -184,9 +184,12 @@ class Order(models.Model):
     order_date = models.DateTimeField(default=timezone.now)
     status = models.IntegerField(choices=OrderStatus.choices, default=1)
     amount = models.FloatField(default=0)
+    courier = models.ForeignKey(CourierProfile, on_delete=models.CASCADE, null=True)
 
 
 class Payments(models.Model):
     courier = models.ForeignKey(CourierProfile, on_delete=models.CASCADE)
     money = models.FloatField()
     date = models.DateTimeField(default=timezone.now)
+
+

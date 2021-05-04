@@ -56,10 +56,11 @@ urlpatterns = [
 
     path('courier/edit/', EditCourierTimeInt.as_view(), name='edit_courier_timeinterval'),
     path('courier/orders', ListOrders.as_view(), name='list_orders'),
-    path('courier/orders/<int:pk>/edit', UpdateOrders.as_view(), name='edit_order'),
+    path('courier/orders/setstatus', UpdateOrders.as_view(), name='set_status'),
+
 
 
     path('order/', CreateOrder.as_view(), name='order'),
-    path('list-orders/', FilterOrders.as_view(), name='list_orders'),
+    path('list-orders/', FilterOrders.as_view(), name='filter_orders'),
 
 ]
