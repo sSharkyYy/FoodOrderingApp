@@ -88,6 +88,8 @@ class Dish(models.Model):
         if self.discount_price is None:
             return self.price
         now = timezone.datetime.date(timezone.now())
+        if self.discount_start_date is None and self.discount_end_date is None:
+            return self.discount_price
         # Akciós időszak
         if self.discount_start_date < now < self.discount_end_date:
             return self.discount_price

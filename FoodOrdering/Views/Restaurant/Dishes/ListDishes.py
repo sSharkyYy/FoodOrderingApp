@@ -15,5 +15,4 @@ class ListDishes(DetailView):
 
         context = super().get_context_data()
         context['dish_categories'] = DishService.get_dish_categories(self.object)
-        print(context)
         return context

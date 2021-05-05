@@ -13,6 +13,7 @@
           <td>{{ object.quantity }} </td>
         </tr>
       {% endfor %}
+
     </table>
     <a href="{% url 'FoodOrdering:order' %}" class="button">
       Megrendelés
@@ -23,4 +24,5 @@
   {% else %}
     Még nincs semmi a kosárban , tegyél bele valamit.
   {% endif %}
+
 {% endblock %}

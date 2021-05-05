@@ -1,0 +1,86 @@
+[
+  {
+    "pk": 1,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Házias"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Magyaros"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Olasz"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Francia"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Kínai"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Thai"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Mexikói"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Amerikai"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Görög"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Japán"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Önkiszolgáló"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "personal.Styles",
+    "fields": {
+      "name": "Gyorsétterem"
+    }
+  }
+]

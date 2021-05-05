@@ -15,7 +15,7 @@ $(document).ready(function () {
       },
       complete: function (xhr) {
         if (xhr.status == 200)
-          alert('Termék a kosáraba került')
+          alert('Termék a kosárba került')
         else {
           alert(xhr.responseText)
         }

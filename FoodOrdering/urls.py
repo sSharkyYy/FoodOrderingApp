@@ -20,6 +20,7 @@ from FoodOrdering.Views.Cart.Clear import ClearCart
 from FoodOrdering.Views.Cart.List import ListCartItems
 from FoodOrdering.Views.Order.Create import CreateOrder
 from FoodOrdering.Views.Restaurant.Dishes.AddDish import AddDish
+from FoodOrdering.Views.Restaurant.Dishes.DiscountDish import DiscountDish
 from FoodOrdering.Views.Restaurant.Dishes.EditDish import EditDish
 from FoodOrdering.Views.Restaurant.FilterOrders import FilterOrders
 from FoodOrdering.Views.Restaurant.Types.AddType import AddType
@@ -62,5 +63,6 @@ urlpatterns = [
 
     path('order/', CreateOrder.as_view(), name='order'),
     path('list-orders/', FilterOrders.as_view(), name='filter_orders'),
+    path('restaurant/mass_discount/', DiscountDish.as_view(), name='mass_discount'),
 
 ]
