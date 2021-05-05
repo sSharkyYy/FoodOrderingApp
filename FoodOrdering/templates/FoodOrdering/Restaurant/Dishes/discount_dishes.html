@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <form action="{% url 'FoodOrdering:mass_discount' %}" method="post">
+    {% for dish in dishes %}
+      {{ dish }}
+      <input type="checkbox" name="dish-{{ dish.pk }}">
+    {% endfor %}
+    {% csrf_token %}
+    {{ form1|crispy }}
+    <input type="submit">
+  </form>
+
+{% endblock %}
