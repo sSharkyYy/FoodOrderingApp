@@ -4,17 +4,15 @@ from django.views.generic import ListView
 
 from FoodOrdering.services.DishService import DishService
 from FoodOrdering.services.ProfileService import ProfileService
-from personal.models import Order,OrderStatus
+from personal.models import Payments
 
 
 class ListPayments(LoginRequiredMixin, ListView):
-    model = Order
+    model = Payments
     template_name = 'FoodOrdering/Courier/list_payments.html'
-    context_object_name = 'orders'
-    ordering = ['order_date']
+    context_object_name = 'payments'
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        qs.filter(status=OrderStatus.Ordered.value)
 
-        return qs
+    # ordering = ['order_date']
+
+

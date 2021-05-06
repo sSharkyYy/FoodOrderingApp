@@ -7,9 +7,9 @@
     <div class="card-header">Jutalék</div>
     <div class="card-body">
       <div class="row">
-        {% for order in orders %}
+        {% for payment in payments %}
             <div class="card my-1">
-
+            {{ payment.money }}
             </div>
         {% endfor %}
       </div>
