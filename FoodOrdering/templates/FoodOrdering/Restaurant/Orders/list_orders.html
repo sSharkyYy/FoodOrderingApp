@@ -18,6 +18,12 @@
           {% if order.status == 2 %}
             Kiszálítás alatt
           {% endif %}
+          {% if order.status == 4 %}
+            Készítés alatt
+          {% endif %}
+          {% if order.status == 5 %}
+            Kiszállításra vár
+          {% endif %}
         </td>
         <td>
           {{ order.amount }}
@@ -25,4 +31,10 @@
       </tr>
     {% endfor %}
   </table>
+
+  <script>
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000 * 5) //30 sec
+  </script>
 {% endblock %}
