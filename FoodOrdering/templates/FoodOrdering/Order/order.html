@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form action="{% url 'FoodOrdering:order' %}" method="post">
+  <div class="form-group">
+      <label for="seeAnotherField">Shipping</label>
+      <select class="form-control" id="seeAnotherField">
+            <option value="1">Házhozszállítás.</option>
+            <option value="2">Átvétel</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="hazhozDiv">
+      <label for="hazhoz">Address</label>
+      <input type="text" class="form-control" id="hazhoz">
+    </div>
+
+
+ <script src="{% static 'FoodOrdering/js/choose.js' %}"></script>
+{% endblock %}
