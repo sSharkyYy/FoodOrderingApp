@@ -20,6 +20,7 @@ class UpdateOrders(View):
 
         if reject and reject == '1':
             order.courier = None
+            order.status = OrderStatus.Ordered.value
 
         if delivered and delivered == '1':
             order.status = OrderStatus.Delivered.value

@@ -19,12 +19,14 @@
                       <br>
                       {{ dish.get_price }} Ft.
                       <br>
-                      <input type="number" min="0" name="quantity" class="quantity-{{ dish.pk }}">
-                      <button class="button add-to-cart" data-cartid="{{ dish.pk }}">
-                        Kosárba
-                      </button>
+                      {% if not request.user.is_authenticated or request.user.tenant_type == 2 %}
+                        <input type="number" min="0" name="quantity" class="quantity-{{ dish.pk }}" placeholder="Mennyiség">
+                        <button class="btn btn-success add-to-cart m-3 p-2" data-cartid="{{ dish.pk }}">
+                          Kosárba
+                        </button>
+                      {% endif %}
                       {% if object.user == request.user %}
-                        <a href="{% url 'FoodOrdering:edit_dish' dish.pk %}">
+                        <a href="{% url 'FoodOrdering:edit_dish' dish.pk %}" class="m-3 p-2 btn btn-warning">
                           Szerkesztés
                         </a>
                       {% endif %}
@@ -39,5 +41,7 @@
     {% endwith %}
   {% endfor %}
   <script src="{% static 'FoodOrdering/js/common.js' %}"></script>
-  <a href="{% url 'FoodOrdering:cart' %}">Tovább a kosárhoz</a>
+  {% if not request.user.is_authenticated or request.user.tenant_type == 2 %}
+    <a href="{% url 'FoodOrdering:cart' %}" class="btn btn-primary m-3 p-2">Tovább a kosárhoz</a>
+  {% endif %}
 {% endblock %}
