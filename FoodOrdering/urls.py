@@ -34,6 +34,7 @@ from FoodOrdering.Views.Restaurant.Orders.ListOrders import ListOrders as ListRe
 from FoodOrdering.Views.Courier.Edit import EditCourierTimeInt
 from FoodOrdering.Views.Courier.Orders.ListOrders import ListOrders
 from FoodOrdering.Views.Courier.Orders.UpdateOrders import UpdateOrders
+from FoodOrdering.Views.Courier.ListPayments import ListPayments
 
 app_name = 'FoodOrdering'
 urlpatterns = [
@@ -60,6 +61,7 @@ urlpatterns = [
     path('courier/edit/', EditCourierTimeInt.as_view(), name='edit_courier_timeinterval'),
     path('courier/orders', ListOrders.as_view(), name='list_orders'),
     path('courier/orders/setstatus', UpdateOrders.as_view(), name='set_status'),
+    path('courier/', ListPayments.as_view(), name='list_payments'),
 
     path('order/', CreateOrder.as_view(), name='order'),
     path('list-orders/', FilterOrders.as_view(), name='filter_orders'),
