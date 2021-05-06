@@ -63,6 +63,9 @@ class RestaurantProfile(Profile):
     style = models.ForeignKey('Styles', on_delete=models.CASCADE, blank=True, null=True)
     open_from = models.TimeField(max_length=50)
     open_to = models.TimeField(max_length=50)
+    estimated_del_time = models.CharField(max_length=10)
+    # peak_time_start = models.TimeField(max_length=50)
+    # peak_time_end = models.TimeField(max_length=50)
 
     def is_open(self, time=timezone.now().time()):
         return self.open_from < time < self.open_to
