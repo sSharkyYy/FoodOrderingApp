@@ -51,7 +51,7 @@ class CreateOrder(View):
             messages.error(request, 'Invalid name')
             return render(request, 'FoodOrdering/checkout.html')
 
-        order = Order(name=name, address=address, cart=cart)
+        order = Order(name=name, address=address, cart=cart, amount=cart.get_sum())
         order.save()
         cart.set_ordered()
 
