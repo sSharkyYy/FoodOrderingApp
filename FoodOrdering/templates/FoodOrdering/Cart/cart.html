@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static shop_common %}
 {% block content %}
   {% if object_list %}
     <table>
       <tr>
-        <th>Kaja</th>
-        <th>Mennyiség</th>
+        <th class="p-2 m-3">Kaja</th>
+        <th class="p-2 m-3">Mennyiség</th>
+        <th class="p-2 m-3">Egység Ár</th>
+        <th class="p-2 m-3">Ár</th>
       </tr>
       {% for object in object_list %}
         <tr>
-          <td>{{ object.dish }} </td>
-          <td>{{ object.quantity }} </td>
+          <td class="p-2 m-3">{{ object.dish }} </td>
+          <td class="p-2 m-3">{{ object.quantity }} </td>
+          <td class="p-2 m-3">{{ object.dish.price }} </td>
+          <td class="p-2 m-3">{% multiply object.quantity object.dish.price %} </td>
         </tr>
       {% endfor %}
 
@@ -18,7 +22,7 @@
     <a href="{% url 'FoodOrdering:order' %}" class="btn p-2 m-3 btn-primary">
       Megrendelés
     </a>
-    <a href="{% url 'FoodOrdering:clear_cart' %}" class="btn p-2 m-3 btn-primary">
+    <a href="{% url 'FoodOrdering:clear_cart' %}" class="btn p-2 m-3 btn-danger">
       Kosár törlése
     </a>
   {% else %}
