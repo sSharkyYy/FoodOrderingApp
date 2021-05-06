@@ -22,7 +22,6 @@
                   {% csrf_token %}
                   <button name="accept" type="submit" value="1">Vállal
                   </button>
-                  <button name="reject" type="submit" value="1">Nono</button>
                   <input type="hidden" name="order" value="{{ order.pk }}">
                 </form>
               </div>
@@ -50,6 +49,7 @@
                 <form action="{% url 'FoodOrdering:set_status' %}" method="post">
                   {% csrf_token %}
                   <button name="delivered" type="submit" value="1">Kiszállítva</button>
+                  <button name="reject" type="submit" value="1">Nono</button>
                   <input type="hidden" name="order" value="{{ order.pk }}">
                 </form>
               </div>
