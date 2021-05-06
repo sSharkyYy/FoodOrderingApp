@@ -15,10 +15,10 @@
       {% endfor %}
 
     </table>
-    <a href="{% url 'FoodOrdering:order' %}" class="button">
+    <a href="{% url 'FoodOrdering:order' %}" class="btn p-2 m-3 btn-primary">
       Megrendelés
     </a>
-    <a href="{% url 'FoodOrdering:clear_cart' %}" class="button">
+    <a href="{% url 'FoodOrdering:clear_cart' %}" class="btn p-2 m-3 btn-primary">
       Kosár törlése
     </a>
   {% else %}

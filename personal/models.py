@@ -64,6 +64,7 @@ class RestaurantProfile(Profile):
     open_from = models.TimeField(max_length=50)
     open_to = models.TimeField(max_length=50)
     estimated_del_time = models.CharField(max_length=10)
+
     # peak_time_start = models.TimeField(max_length=50)
     # peak_time_end = models.TimeField(max_length=50)
 
@@ -175,6 +176,15 @@ class Cart(models.Model):
 
         return cart
 
+    def get_sum(self):
+        items = DishToCart.objects.filter(cart=self).select_related('dish')
+        sum = 0
+        item: DishToCart
+        for item in items:
+            sum += item.quantity * item.dish.get_price()
+
+        return sum
+
 
 class OrderStatus(models.Choices):
     Ordered = 1
@@ -197,5 +207,3 @@ class Payments(models.Model):
     money = models.FloatField()
     date = models.DateTimeField(default=timezone.now)
     order = models.ForeignKey('Order', on_delete=models.SET_NULL, null=True)
-
-
