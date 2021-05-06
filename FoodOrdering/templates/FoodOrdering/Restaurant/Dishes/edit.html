@@ -5,6 +5,6 @@
 <form action="{% url 'FoodOrdering:edit_dish' object.pk %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form|crispy }}
-  <input type="submit" value="Save">
+  <input class="btn btn-lg btn-success" type="submit" value="Save">
 </form>
 {% endblock %}
