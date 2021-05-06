@@ -39,5 +39,7 @@
     {% endwith %}
   {% endfor %}
   <script src="{% static 'FoodOrdering/js/common.js' %}"></script>
-  <a href="{% url 'FoodOrdering:cart' %}">Tovább a kosárhoz</a>
+  {% if not request.user.is_authenticated or request.user.tenant_type == 2 %}
+    <a href="{% url 'FoodOrdering:cart' %}">Tovább a kosárhoz</a>
+  {% endif %}
 {% endblock %}
