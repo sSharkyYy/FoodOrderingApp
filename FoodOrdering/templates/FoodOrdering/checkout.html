@@ -4,6 +4,8 @@
   <form action="{% url 'FoodOrdering:order' %}" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Megrendelés" class="button">
+    <input type="submit" value="Megrendelés" class="btn btn-lg btn-success">
   </form>
+  <script src="{% static 'FoodOrdering/js/choose.js' %}"></script>
+
 {% endblock %}

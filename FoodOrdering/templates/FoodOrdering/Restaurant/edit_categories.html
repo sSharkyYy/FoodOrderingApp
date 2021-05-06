@@ -5,6 +5,6 @@
   <form action="{% url 'FoodOrdering:edit_categories' %}" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Save">
+    <input class="btn btn-lg btn-success" type="submit" value="Save">
   </form>
 {% endblock %}
