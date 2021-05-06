@@ -55,5 +55,6 @@ class CreateOrder(View):
         order.save()
         cart.set_ordered()
 
-        messages.success(request, 'Sikeres megrendelés!')
+        messages.success(request,
+                         f'Sikeres megrendelés! <br> A várható kiszállítási idő: {cart.restaurant.estimated_del_time}')
         return redirect('/')
