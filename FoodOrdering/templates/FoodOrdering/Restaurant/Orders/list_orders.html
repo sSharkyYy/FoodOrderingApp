@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <table>
+    <tr>
+      <th>Sorszám</th>
+      <th>Státusz</th>
+      <th>Összeg</th>
+    </tr>
+    {% for order in order_list %}
+      <tr>
+        <td>{{ order.pk }}</td>
+        <td>
+          {% if order.status == 1 %}
+            Rögzítve
+          {% endif %}
+          {% if order.status == 2 %}
+            Kiszálítás alatt
+          {% endif %}
+        </td>
+        <td>
+          {{ order.amount }}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
