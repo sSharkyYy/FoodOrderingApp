@@ -7,11 +7,12 @@
     <div class="card-header">Jutalék</div>
     <div class="card-body">
       <div class="row">
-        {% for payment in payments %}
-            <div class="card my-1">
-            {{ payment.money }}
-            </div>
-        {% endfor %}
+        <div class="card my-1">
+          {% for payment in payments %}
+            {{ payment.total_money }}
+          {% endfor %}
+
+        </div>
       </div>
     </div>
   </div>
