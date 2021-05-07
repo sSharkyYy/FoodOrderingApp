@@ -4,7 +4,7 @@ from django.views.generic import ListView
 
 from FoodOrdering.services.DishService import DishService
 from FoodOrdering.services.ProfileService import ProfileService
-from personal.models import Order,OrderStatus
+from personal.models import Order, OrderStatus
 
 
 class ListOrders(LoginRequiredMixin, ListView):
@@ -15,6 +15,6 @@ class ListOrders(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs.filter(status=OrderStatus.Ordered.value).filter()
+        qs.filter(status=OrderStatus.Ordered.value).filter(shipping_type=1)
 
         return qs
