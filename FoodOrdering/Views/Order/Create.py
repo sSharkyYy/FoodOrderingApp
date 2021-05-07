@@ -30,15 +30,18 @@ class CreateOrder(View):
         cart = Cart.get_cart(request.user, request.session.session_key)
         address = None
         name = None
+        shipping_type = 1
 
         if cart.restaurant is None or not cart.restaurant.is_open():
-            return
+            messages.error(request, 'Hiba történt!')
+            return redirect('/')
 
         if not request.user.is_authenticated:
             form = CreateOrderForm(request.POST)
             if form.is_valid():
                 address = form.cleaned_data.get('address', None)
                 name = form.cleaned_data.get('name', None)
+                shipping_type = form.cleaned_data.get('shipping', None)
         else:
             name = request.user.get_full_name()
             address = request.user.address
@@ -51,7 +54,7 @@ class CreateOrder(View):
             messages.error(request, 'Invalid name')
             return render(request, 'FoodOrdering/checkout.html')
 
-        order = Order(name=name, address=address, cart=cart, amount=cart.get_sum())
+        order = Order(name=name, address=address, cart=cart, amount=cart.get_sum(), shipping_type=shipping_type)
         order.save()
         cart.set_ordered()
 

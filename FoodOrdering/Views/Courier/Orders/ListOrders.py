@@ -15,6 +15,6 @@ class ListOrders(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs.filter(status=OrderStatus.Ordered.value)
+        qs.filter(status=OrderStatus.Ordered.value).filter()
 
         return qs
