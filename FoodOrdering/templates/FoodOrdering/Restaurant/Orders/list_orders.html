@@ -6,6 +6,7 @@
     <tr>
       <th>Sorszám</th>
       <th>Státusz</th>
+      <th>Kiszállítás módja</th>
       <th>Összeg</th>
     </tr>
     {% for order in order_list %}
@@ -27,6 +28,13 @@
         </td>
         <td>
           {{ order.amount }}
+        </td>
+        <td>
+          {% if order.shipping_type == 1 %}
+            Házhoszállítás
+          {% else %}
+            Személyes átvétel
+          {% endif %}
         </td>
       </tr>
     {% endfor %}

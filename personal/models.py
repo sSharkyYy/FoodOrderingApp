@@ -200,6 +200,7 @@ class Order(models.Model):
     status = models.IntegerField(choices=OrderStatus.choices, default=1)
     amount = models.FloatField(default=0)
     courier = models.ForeignKey(CourierProfile, on_delete=models.CASCADE, null=True)
+    shipping_type = models.IntegerField(default=1)
 
 
 class Payments(models.Model):
